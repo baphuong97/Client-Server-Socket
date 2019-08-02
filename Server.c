@@ -417,7 +417,7 @@ int main()
 				if (0 == strcmp(buffer, ":exit"))
 				{
 					printf("Disconnected from %s:%d\n", 
-					       inet_ntoa(newAddr.sin_addr), ntohs(newAddr.sin_port));
+					inet_ntoa(newAddr.sin_addr), ntohs(newAddr.sin_port));
 					kill(getppid(), SIGCHLD);
 					sleep(1);
 					return 0;	
