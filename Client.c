@@ -94,6 +94,10 @@ int main()
 	send(clientSocket,buffer,50,0);
 	char sta[50];
 	recv(clientSocket,sta,50,0);
+	if (0 != strcmp(sta, "Wellcome Admin!"))
+        {
+            printf("Wrong password!\n");
+        }
 	
 	while (0 != strcmp(sta,"Wellcome Admin!"))
 	{
@@ -106,6 +110,7 @@ int main()
 		scanf("%s", &buffer[0]);
 		send(clientSocket,buffer,50,0);
 		recv(clientSocket,sta,50,0);
+		printf("Wrong password!\n");
 	}
 	
 	printf("=== WELLCOME ADMIN===\n");
