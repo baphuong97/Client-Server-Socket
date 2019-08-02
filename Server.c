@@ -50,9 +50,9 @@ void signal_handler(int signo)
 		admin_login = 0;	
 	}
 	/*  child */
-	else if (SIGCHLD == signo)
+	else if (40 == signo)
 	{
-		puts("jump to sig child");
+		puts("jump to exit");
 		admin_login = 0;	
 	}
 }
@@ -327,7 +327,7 @@ int main()
 
 	signal(SIGUSR1, signal_handler);
 	signal(SIGUSR2, signal_handler);
-	signal(SIGCHLD, signal_handler);
+	signal(40, signal_handler);
 
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	if (sockfd < 0)
@@ -397,7 +397,7 @@ int main()
                		    recv(newSocket,pass,50,0);
 			}
 			relogin:printf("admin_login = %d\n", admin_login);
-			        kill(getppid(), SIGUSR1);
+			        kill(getppid(), 40);
 				usleep(100000);
 				if (configable())
 					puts("ok");
