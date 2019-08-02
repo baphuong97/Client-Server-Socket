@@ -390,7 +390,7 @@ int main()
 			printf("%s\n",user);
 			printf("%s\n",pass);
 			
-			while (0 != strcmp(user,"Dasan")!=0||strcmp(pass,"123456"))
+			while (0 != strcmp(user,"Dasan") || strcmp(pass,"123456"))
 			{
 			    send(newSocket,"Login Again!",50,0);
             	            recv(newSocket,user,50,0);
@@ -414,7 +414,7 @@ int main()
 			while (1)
 			{
 				recv(newSocket, buffer, 1024, 0);
-				if (0 == strcmp(buffer, ":exit") == 0)
+				if (0 == strcmp(buffer, ":exit"))
 				{
 					printf("Disconnected from %s:%d\n", 
 					       inet_ntoa(newAddr.sin_addr), ntohs(newAddr.sin_port));
