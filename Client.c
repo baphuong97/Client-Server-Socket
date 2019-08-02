@@ -208,7 +208,7 @@ int main()
 				printf("%s\n",status);
 			}
 			
-			if (strcmp(buffer, "mac"))
+			if (0 == strcmp(buffer, "mac"))
 			{
 				char mac[50], status[50];
 				scanf("%s", mac);
