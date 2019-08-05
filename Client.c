@@ -93,12 +93,12 @@ int main()
 	printf("LOGIN TO SERVER\n");
 	printf("User name: \t");
 	scanf("%s", &buffer[0]);
-	send(clientSocket,buffer,50,0);
+	send(clientSocket,buffer,32,0);
 	printf("Password: \t");
 	scanf("%s", &buffer[0]);
-	send(clientSocket,buffer,50,0);
+	send(clientSocket,buffer,32,0);
 
-	recv(clientSocket,sta,50,0);
+	recv(clientSocket,sta,32,0);
 	if (0 != strcmp(sta, "Wellcome Admin!"))
         {
             printf("Wrong password!\n");
@@ -106,24 +106,24 @@ int main()
 	
 	while (0 != strcmp(sta,"Wellcome Admin!"))
 	{
-    		memset(buffer, '\0', 50);
+    		memset(buffer, '\0', 32);
 		printf("LOGIN TO SERVER\n");
 		printf("User name: \t");
 		scanf("%s", &buffer[0]);
-		send(clientSocket,buffer,50,0);
+		send(clientSocket,buffer,32,0);
 		printf("Password: \t");
 		scanf("%s", &buffer[0]);
-		send(clientSocket,buffer,50,0);
-		recv(clientSocket,sta,50,0);
+		send(clientSocket,buffer,32,0);
+		recv(clientSocket,sta,32,0);
 		printf("Wrong password!\n");
 	}
 	
 	printf("=== WELLCOME ADMIN===\n");
 	for (i = 1; i < NUM_INTERFACE; i++)
 	{
-		recv(clientSocket, list_control[i].interface, 50, 0);
-		recv(clientSocket, list_control[i].alias, 50, 0);
-		recv(clientSocket, list_control[i].mode, 50, 0);
+		recv(clientSocket, list_control[i].interface, 32, 0);
+		recv(clientSocket, list_control[i].alias, 32, 0);
+		recv(clientSocket, list_control[i].mode, 32, 0);
 	}
 	show(list_control);
 	
@@ -168,8 +168,8 @@ int main()
 			if (0 == strcmp(buffer, "ip"))
 			{
 				scanf("%s", ip);
-				send(clientSocket, ip, 50, 0);
-				recv(clientSocket, status, 50, 0);
+				send(clientSocket, ip, 32, 0);
+				recv(clientSocket, status, 32, 0);
 				if (0 == strcmp(status, "Wrong IP!"))
 				{
 					printf("%s\n", status);
@@ -192,7 +192,6 @@ int main()
 				scanf("%s", ip);
 				send(clientSocket, ip, 50, 0);
 				recv(clientSocket, status, 50, 0);
-				char size[5];
 				recv(clientSocket, size, 10, 0);
 				printf("%d\n", atoi(size));
 				printf("BlackList IP:\n");
@@ -215,7 +214,6 @@ int main()
 				scanf("%s", mac);
 				send(clientSocket, mac, 50, 0);
 				recv(clientSocket, status, 50, 0);
-				char size[5];
 				recv(clientSocket, size, 10, 0);
 				printf("%d\n", atoi(size));
 				printf("BlackList MAC:\n");
