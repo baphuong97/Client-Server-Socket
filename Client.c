@@ -12,11 +12,11 @@ const int NUM_INTERFACE = 2;
 int i;
 
 struct control{
-	char interface[50], alias[50], mode[50];
+	char interface[32], alias[32], mode[32];
 };
 
 struct lan{
-	char interface[50], rule[50], proto[50], srcip[50], srcmac[50], mask[50];
+	char interface[32], rule[32], proto[32], srcip[32], srcmac[32], mask[32];
 };
 
 void show(struct control list[])
@@ -61,8 +61,12 @@ int main()
 	int clientSocket, ret;
 	struct sockaddr_in serverAddr;
 	char buffer[1024];
+	char sta[32];
+	char ip[32], status[32];
+	char size[8];
+	char mac[32];
 
-	struct control list_control[5];
+	struct control list_control[8];
 	
 	clientSocket = socket(AF_INET, SOCK_STREAM, 0);
 	if (clientSocket < 0)
@@ -93,7 +97,7 @@ int main()
 	printf("Password: \t");
 	scanf("%s", &buffer[0]);
 	send(clientSocket,buffer,50,0);
-	char sta[50];
+
 	recv(clientSocket,sta,50,0);
 	if (0 != strcmp(sta, "Wellcome Admin!"))
         {
@@ -163,7 +167,6 @@ int main()
 			
 			if (0 == strcmp(buffer, "ip"))
 			{
-				char ip[50], status[50];
 				scanf("%s", ip);
 				send(clientSocket, ip, 50, 0);
 				recv(clientSocket, status, 50, 0);
@@ -172,7 +175,7 @@ int main()
 					printf("%s\n", status);
 					continue;
 				}
-				char size[5];
+
 				recv(clientSocket, size, 10, 0);
 				printf("%d\n", atoi(size));
 				printf("Black list IP:\n");
@@ -186,7 +189,6 @@ int main()
 			
 			if (0 == strcmp(buffer, "rangeIP"))
 			{
-				char ip[50], status[50];
 				scanf("%s", ip);
 				send(clientSocket, ip, 50, 0);
 				recv(clientSocket, status, 50, 0);
@@ -204,14 +206,12 @@ int main()
 			
 			if (0 == strcmp(buffer, "all"))
 			{
-				char status[50];
 				recv(clientSocket, status,50,0);
 				printf("%s\n",status);
 			}
 			
 			if (0 == strcmp(buffer, "mac"))
 			{
-				char mac[50], status[50];
 				scanf("%s", mac);
 				send(clientSocket, mac, 50, 0);
 				recv(clientSocket, status, 50, 0);
@@ -234,7 +234,6 @@ int main()
 			send(clientSocket, buffer, 1024, 0);
 			if (0 == strcmp(buffer, "ip"))
 			{
-				char ip[50], status[50];
 				scanf("%s", ip);
 				send(clientSocket, ip, 50, 0);
 				recv(clientSocket, status, 50, 0);
@@ -243,7 +242,6 @@ int main()
 					printf("%s\n", status);
 					continue;
 				}
-				char size[5];
 				recv(clientSocket, size, 10, 0);
 				printf("%d\n", atoi(size));
 				printf("WhiteList IP:\n");
@@ -257,7 +255,6 @@ int main()
 			
 			if (0 == strcmp(buffer, "rangeIP"))
 			{
-				char ip[50], status[50];
 				scanf("%s", ip);
 				send(clientSocket, ip, 50, 0);
 				recv(clientSocket, status, 50, 0);
@@ -266,7 +263,6 @@ int main()
 					printf("%s\n", status);
 					continue;
 				}
-				char size[5];
 				recv(clientSocket, size, 10, 0);
 				printf("%d\n", atoi(size));
 				printf("WhiteList IP:\n");
@@ -280,18 +276,15 @@ int main()
 			
 			if (0 == strcmp(buffer, "all"))
 			{
-				char status[50];
 				recv(clientSocket, status,50,0);
 				printf("%s\n",status);
 			}
 			
 			if (0 == strcmp(buffer, "mac"))
 			{
-				char mac[50], status[50];
 				scanf("%s", mac);
 				send(clientSocket, mac, 50, 0);
 				recv(clientSocket, status, 50, 0);
-				char size[5];
 				recv(clientSocket, size, 10, 0);
 				printf("%d\n", atoi(size));
 				printf("WhiteList MAC:\n");
@@ -310,7 +303,7 @@ int main()
 			send(clientSocket, buffer, 50, 0);
 			scanf("%s", &buffer[0]);
 			send(clientSocket, buffer, 50, 0);
-			char status[50] = "False!";
+			status[32] = "False!";
 			recv(clientSocket, status, 50, 0);
 
 			if(strcmp (0 == status, "Premiss Denied!")) 
@@ -341,7 +334,7 @@ int main()
 		{
 			scanf("%s", &buffer[0]);
 			send(clientSocket, buffer, strlen(buffer), 0);
-			char status[50] = "False!";
+			status[50] = "False!";
 			recv(clientSocket, status, 50, 0);
 			printf("Server delete: %s\n", status);
 		}
